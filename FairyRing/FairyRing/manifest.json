@@ -1,0 +1,9 @@
+{
+    "Name": "Fairy Ring",
+    "Author": "Poplinp",
+    "Version": "1.0.0",
+    "Description": "beta",
+    "UniqueID": "Poplinp.FairyRingHelper",
+    "EntryDll": "FairyRing.dll",
+    "MinimumApiVersion": "4.0.0"
+}

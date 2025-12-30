@@ -1,0 +1,10 @@
+{
+    "Name": "Mystery Box Crusher",
+    "Author": "Poplinp",
+    "Version": "1.0.0",
+    "Description": "Automatically opens Mystery Boxes and Golden Mystery Boxes when put in the crusher.",
+    "UniqueID": "Poplinp.MysteryBoxCrusher",
+    "EntryDll": "MysteryBoxCrusher.dll",
+    "MinimumApiVersion": "4.0.0",
+    "UpdateKeys": []
+}

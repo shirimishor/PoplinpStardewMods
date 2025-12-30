@@ -1,0 +1,17 @@
+{
+  "Name": "[CP] Mystery Box Crusher",
+  "Author": "Poplinp",
+  "Version": "1.1.0",
+  "Description": "A machine to open mystery boxes automatically.",
+  "UniqueID": "Poplinp.CP_MysteryBoxCrusher",
+  "UpdateKeys": [ "Nexus:39551" ],
+  "ContentPackFor": {
+    "UniqueID": "Pathoschild.ContentPatcher"
+  },
+  "Dependencies": [
+    {
+      "UniqueID": "Selph.ExtraMachineConfig",
+      "IsRequired": true
+    }
+  ]
+}

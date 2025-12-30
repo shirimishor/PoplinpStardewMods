@@ -1,0 +1,182 @@
+{
+  "Format": "2.8.0",
+  "Changes": [
+    {
+      "Action": "Load",
+      "Target": "Mods/{{ModId}}/ring_sprite",
+      "FromFile": "assets/fairy-ring.png"
+    },
+    {
+      "Action": "Load",
+      "Target": "Mods/{{ModId}}/buff-sprite",
+      "FromFile": "assets/buff-sprite.png"
+    },
+
+
+    {
+      "LogName": "Adding Dizzy debuff",
+      "Action": "EditData",
+      "Target": "Data/Buffs",
+      "Entries": {
+          "{{ModId}}_DizzyDebuff": {
+              "DisplayName": "{{i18n:DizzyDebuff.DisplayName}}", 
+              "IsDebuff": true,
+              "GlowColor": "PaleTurquoise",
+              "Duration": 60000, 
+              "IconTexture": "Mods/{{ModId}}/buff-sprite", 
+              "IconSpriteIndex": 0, 
+              "Effects": {
+                  "Speed": -0.5
+              }
+          }
+      }
+    },
+
+    {
+      "LogName": "Adding Sleepy debuff",
+      "Action": "EditData",
+      "Target": "Data/Buffs",
+      "Entries": {
+          "{{ModId}}_SleepyDebuff": {
+              "DisplayName": "{{i18n:SleepyDebuff.DisplayName}}", 
+              "IsDebuff": true,
+              "GlowColor": "SlateGray",
+              "Duration": 30000, 
+              "IconTexture": "Mods/{{ModId}}/buff-sprite", 
+              "IconSpriteIndex": 1, 
+              "Effects": {
+                  "MaxStamina": -250
+              }
+          }
+      }
+    },
+
+
+    {
+      "Action": "EditData",
+      "Target": "Data/BigCraftables",
+      "Entries": {
+        "{{ModId}}_FairyRing": {
+          "Name": "{{ModId}}_FairyRing",
+          "DisplayName": "{{i18n:Poplinp.FairyRing.DisplayName}}",
+          "Description": "{{i18n:Poplinp.FairyRing.Description}}",
+          "Texture": "Mods/{{ModId}}/ring_sprite",
+          "SpriteIndex": 0
+        }
+      }
+    },
+
+    {
+      "Action": "EditData",
+      "Target": "Data/Machines",
+      "Entries": {
+          "(BC){{ModId}}_FairyRing": {
+            "OutputRules": [
+              {
+                  "Id": "{{ModId}}_FairyOutput",
+                  "Triggers": [
+                      {
+                      "Trigger": "MachinePutDown, OutputCollected"
+                      }
+                  ],
+                  "UseFirstValidOutput": true,
+                  "OutputItem": [
+                      {
+                      "Id": "{{ModId}}_MushroomCapOutput", 
+                      "CustomData": {
+                        "selph.ExtraMachineConfig.ExtraOutputIds": "ActualMushroomCapOutput"
+                      },
+                      "ItemId": "selph.ExtraMachineConfig.Holder",
+                      "ObjectColor":"White",
+                      "Condition": "RANDOM .005"
+
+                      },
+                      {
+                      "Id": "{{ModId}}_FurnitureCapOutput", 
+                      "CustomData": {
+                        "selph.ExtraMachineConfig.ExtraOutputIds": "ActualFurnitureCapOutput"
+                      },
+                      "ItemId": "selph.ExtraMachineConfig.Holder",
+                      "ObjectColor":"White",
+                      "Condition": "RANDOM .01"
+                      },
+
+                      {
+                      "Id": "{{ModId}}_RottenPlantOutput",
+                      "RandomItemId": [ "(O)747", "(O)748" ],
+                      "Condition": "RANDOM .05",
+                      "MinStack": 1
+                      },
+
+                      {
+                      "Id": "{{ModId}}_MushroomTreeSeedOutput",
+                      "ItemId": "(O)891",
+                      "Condition": "RANDOM .075",
+                      "MinStack": 1
+                      },
+
+                      {
+                      "Id": "{{ModId}}_MossySeedOutput",
+                      "ItemId": "(O)MossySeed",
+                      "Condition": "RANDOM .1",
+                      "MinStack": 1
+                      },
+
+                      {
+                      "Id": "{{ModId}}_FairyDustOutput", 
+                      "ItemId": "(O)872",
+                      "Condition": "RANDOM .5",
+                      "MinStack": 1,
+                      "MaxStack": 3
+                      },
+
+                    {
+                    "Id": "{{ModId}}_MossOutput",
+                    "ItemId": "(O)Moss",
+                    "MinStack": 3,
+                    "MaxStack": 10
+                    }
+                      
+
+                  ],
+                  "DaysUntilReady": 1
+              }
+          ],
+          "AllowFairyDust": true,
+          "WorkingEffects": [
+              {
+              "Frames": [ 1, 2, 3, 4, 5, 6, 7, 8]
+              }
+          ],
+          "WobbleWhileWorking": false
+          }
+      }
+    },
+
+
+    {
+      "Action": "EditData",
+      "Target": "selph.ExtraMachineConfig/ExtraOutputs",
+      "Entries": {
+        "ActualMushroomCapOutput": {
+          "ItemId": "(H)42"
+        },
+         "ActualFurnitureOutput": {
+          "RandomItemId": [ "(F)PottedRedMushroom", "(F)JunimoLamp", "(F)FancyTree1", "(F)FancyTree2", "(F)FancyTree3", "(F)FancyHousePlant1", "(F)FancyHousePlant2", "(F)FancyHousePlant3", "(F)FancyHousePlant4", "(F)FancyHousePlant5"]
+        }
+      }
+    },
+
+
+
+    {
+			"Action": "EditData",
+			"Target": "Data/CraftingRecipes",
+			"Entries": {
+				"{{ModId}}_FairyRing": "420 20 768 1/Home/{{ModId}}_FairyRing/true/Foraging 9/"
+			}
+		}
+
+
+  ]
+}

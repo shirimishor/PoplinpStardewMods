@@ -1,0 +1,107 @@
+{
+  "Format": "2.8.0",
+  "ConfigSchema": {
+      "Appearance": {
+         "AllowValues": "Qi Purple, Muted Purple, Muted Aqua",
+         "Default": "Qi Purple"
+      }
+  },
+
+  "Changes": [
+    {
+      "Action": "Load",
+      "Target": "Mods/{{ModId}}/crusher_sprite",
+      "FromFile": "assets/crusher_sprite_{{Appearance}}.png"
+    },
+    {
+      "Action": "EditData",
+      "Target": "Data/BigCraftables",
+      "Entries": {
+        "{{ModId}}_MysteryBoxCrusher": {
+          "Name": "{{ModId}}_MysteryBoxCrusher",
+          "DisplayName": "{{i18n:Poplinp.CP_MysteryBoxCrusher.DisplayName}}",
+          "Description": "{{i18n:Poplinp.CP_MysteryBoxCrusher.Description}}",
+          "Texture": "Mods/{{ModId}}/crusher_sprite",
+          "SpriteIndex": 0
+        }
+      }
+    },
+    {
+      "Action": "EditData",
+      "Target": "Data/Machines",
+      "Entries": {
+        "(BC){{ModId}}_MysteryBoxCrusher": {
+          "CustomData": {
+            "selph.ExtraMachineConfig.ExtraOutputIds": "ActualMysteryOutput"
+          },
+          "OutputRules": [
+            {
+              "Id": "{{ModId}}_CrushBox",
+              "Triggers": [
+                {
+                  "Id": "{{ModId}}_RegBoxInput",
+                  "Trigger": "ItemPlacedInMachine",
+                  "RequiredItemId": "(O)MysteryBox",
+                  "RequiredCount": 1
+                },
+                {
+                  "Id": "{{ModId}}_GoldenBoxInput",
+                  "Trigger": "ItemPlacedInMachine",
+                  "RequiredItemId": "(O)GoldenMysteryBox",
+                  "RequiredCount": 1
+                }
+              ],
+              "OutputItem": [
+                {
+                  "ItemId": "selph.ExtraMachineConfig.Holder",
+                  "IncrementMachineParentSheetIndex": 1,
+                  "CopyColor": true,
+                  "CustomData": {
+                    "selph.ExtraMachineConfig.ExtraOutputIds": "ActualMysteryOutput"
+                  }
+                }
+              ],
+              "MinutesUntilReady": 60
+            }
+          ],
+          "LoadEffects": [
+                {
+                  "Sounds": [
+                    {
+                      "Id": "qi_shop_purchase"
+                    }
+                  ]
+                }
+              ]
+
+        }
+      }
+    },
+
+
+    {
+      "Action": "EditData",
+      "Target": "selph.ExtraMachineConfig/ExtraOutputs",
+      "Entries": {
+        "ActualMysteryOutput": {
+          "Id": "ActualMysteryOutput",
+          "OutputMethod": "MysteryBoxCrusher.ModEntry, MysteryBoxCrusher: GetItemForMysteryBox"
+        }
+      }
+    },
+    {
+      "Action": "EditData",
+      "Target": "Data/Shops",
+      "TargetField": ["QiGemShop", "Items"],
+      "Entries": {
+        "{{ModId}}_MysteryBoxCrusher": {
+          "Id": "{{ModId}}_MysteryBoxCrusher",
+          "ItemId": "(BC){{ModId}}_MysteryBoxCrusher",
+          "TradeItemId": 858,
+          "TradeItemAmount": 10,
+          "Currency": 4
+        }
+      }
+    }
+  ]
+}
