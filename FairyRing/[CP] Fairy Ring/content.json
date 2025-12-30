@@ -89,16 +89,26 @@
                       "ItemId": "selph.ExtraMachineConfig.Holder",
                       "ObjectColor":"White",
                       "Condition": "RANDOM .005"
-
                       },
+                      
                       {
-                      "Id": "{{ModId}}_FurnitureCapOutput", 
+                      "Id": "{{ModId}}_FurnitureOutput", 
                       "CustomData": {
-                        "selph.ExtraMachineConfig.ExtraOutputIds": "ActualFurnitureCapOutput"
+                        "selph.ExtraMachineConfig.ExtraOutputIds": "ActualFurnitureOutput"
                       },
                       "ItemId": "selph.ExtraMachineConfig.Holder",
-                      "ObjectColor":"White",
+                      "ObjectColor": "White",
                       "Condition": "RANDOM .01"
+                      },
+
+                      {
+                      "Id": "{{ModId}}_BoxOutput", 
+                      "CustomData": {
+                        "selph.ExtraMachineConfig.ExtraOutputIds": "ActualBoxOutput"
+                      },
+                      "ItemId": "selph.ExtraMachineConfig.Holder",
+                      "ObjectColor": "White",
+                      "Condition": "RANDOM .01, PLAYER_STAT Current TrinketSlots 1"
                       },
 
                       {
@@ -163,6 +173,11 @@
         },
          "ActualFurnitureOutput": {
           "RandomItemId": [ "(F)PottedRedMushroom", "(F)JunimoLamp", "(F)FancyTree1", "(F)FancyTree2", "(F)FancyTree3", "(F)FancyHousePlant1", "(F)FancyHousePlant2", "(F)FancyHousePlant3", "(F)FancyHousePlant4", "(F)FancyHousePlant5"]
+          
+        },
+        "ActualBoxOutput": {
+          "ItemId": "(TR)FairyBox"
+          
         }
       }
     },
