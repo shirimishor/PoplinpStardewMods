@@ -6,6 +6,7 @@ using Netcode;
 using System;
 using System.Linq;
 using System.Collections.Generic;
+using Microsoft.Xna.Framework;
 
 namespace FairyRing
 {
@@ -65,13 +66,16 @@ namespace FairyRing
             Dictionary<string, double> debuffs = new Dictionary<string, double>();
             double SumChance = 0;
 
+            debuffs.Add("combust", 0.05);
+            SumChance += 0.005;
+
             if (Config.AllowDebuffs)
             {
-                debuffs.Add("19", 0.07375);
-                debuffs.Add("26", 0.07375);
-                debuffs.Add("Poplinp.CP_FairyRing_DizzyDebuff", 0.07375);
-                debuffs.Add("Poplinp.CP_FairyRing_SleepyDebuff", 0.07375);
-                SumChance += 0.295;
+                debuffs.Add("19", 0.06);
+                debuffs.Add("26", 0.06);
+                debuffs.Add("Poplinp.CP_FairyRing_DizzyDebuff", 0.06);
+                debuffs.Add("Poplinp.CP_FairyRing_SleepyDebuff", 0.06);
+                SumChance += 0.24;
             }
 
             if (Config.AllowDeath)
@@ -106,7 +110,6 @@ namespace FairyRing
 
         private static void OnMachineOutputCollected(SObject machine, Farmer who, Item output)
         {
-
             var debuff = RollDebuff();
             StaticMonitor.Log($"Applying curse {debuff} ", LogLevel.Info);
             if (debuff == "death")
@@ -114,15 +117,34 @@ namespace FairyRing
                 who.takeDamage(9999, true, null);
                 return;
             }
+
+            if (debuff == "combust")
+            {
+                CombustRing(machine);
+                return;
+            }
+
             if (debuff != "none")
             {
                 who.applyBuff(debuff);
                 Game1.playSound("debuffHit");
                 return;
             }
+
             Game1.playSound("fairy_heal");
 
 
+        }
+
+        private static void CombustRing (SObject machine)
+        {
+            Vector2 MachineTile = machine.TileLocation;
+            GameLocation MachineLocation = machine.Location;
+            StaticMonitor.Log($"removing fairy ring in {MachineLocation} at position: {MachineTile}", LogLevel.Info);
+            MachineLocation.removeObject(MachineTile, false);
+            Game1.playSound("flameSpellHit");
+            MachineLocation.temporarySprites.Add(new TemporaryAnimatedSprite(25, MachineTile * 64f, Color.White, 8, false, 80f, 0, -1, -1f, 128));
+            Game1.drawObjectDialogue("You hear laughter in the distance. The Fairy Ring has spontaneously combusted!");
         }
 
         private void OnGameLaunched(object sender, StardewModdingAPI.Events.GameLaunchedEventArgs e)
