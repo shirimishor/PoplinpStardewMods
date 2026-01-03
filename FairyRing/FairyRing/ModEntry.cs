@@ -31,6 +31,11 @@ namespace FairyRing
                 original: AccessTools.Method(typeof(SObject), "CheckForActionOnMachine"),
                 postfix: new HarmonyMethod(typeof(ModEntry), nameof(CheckForActionOnMachine_Postfix))
             );
+
+            harmony.Patch(
+                original: AccessTools.Method(typeof(SObject), "performObjectDropInAction"),
+                postfix: new HarmonyMethod(typeof(ModEntry), nameof(performObjectDropInAction_Postfix))
+            );
         }
 
 
@@ -61,12 +66,36 @@ namespace FairyRing
             }
         }
 
+
+        private static void performObjectDropInAction_Postfix(
+            SObject __instance,
+            Item dropInItem,
+            Farmer who,
+            ref bool __result
+        )
+        {
+            if (__instance.QualifiedItemId != "(BC)Poplinp.CP_FairyRing_FairyRing")
+                return;
+
+            if (!(dropInItem.QualifiedItemId == "(O)872") || !__result)
+                return;
+
+            if (Config.AllowFairyDust)
+                return;
+
+            CombustRing(__instance);
+            Game1.drawObjectDialogue(StaticHelper.Translation.Get("UsesFairyRing"));
+            who.takeDamage(9999, true, null);
+            return;
+
+        }
+
         private static Dictionary<string, double> BuildDebuffTable()
         {
             Dictionary<string, double> debuffs = new Dictionary<string, double>();
             double SumChance = 0;
 
-            debuffs.Add("combust", 0.05);
+            debuffs.Add("combust", 0.005);
             SumChance += 0.005;
 
             if (Config.AllowDebuffs)
@@ -121,6 +150,7 @@ namespace FairyRing
             if (debuff == "combust")
             {
                 CombustRing(machine);
+                Game1.drawObjectDialogue(StaticHelper.Translation.Get("CombustRing"));
                 return;
             }
 
@@ -140,11 +170,9 @@ namespace FairyRing
         {
             Vector2 MachineTile = machine.TileLocation;
             GameLocation MachineLocation = machine.Location;
-            StaticMonitor.Log($"removing fairy ring in {MachineLocation} at position: {MachineTile}", LogLevel.Info);
             MachineLocation.removeObject(MachineTile, false);
             Game1.playSound("flameSpellHit");
             MachineLocation.temporarySprites.Add(new TemporaryAnimatedSprite(25, MachineTile * 64f, Color.White, 8, false, 80f, 0, -1, -1f, 128));
-            Game1.drawObjectDialogue("You hear laughter in the distance. The Fairy Ring has spontaneously combusted!");
         }
 
         private void OnGameLaunched(object sender, StardewModdingAPI.Events.GameLaunchedEventArgs e)
@@ -165,8 +193,8 @@ namespace FairyRing
             // add some config options
             configMenu.AddBoolOption(
                 mod: ModManifest,
-                name: () => "Allow Debuffs",
-                tooltip: () => "Chance to get a debuff when collecting a Fairy Ring product.",
+                name: () => StaticHelper.Translation.Get("ConfigDebuff.Name"),
+                tooltip: () => StaticHelper.Translation.Get("ConfigDebuff.Desc"),
                 getValue: () => Config.AllowDebuffs,
                 setValue: value => Config.AllowDebuffs = value
             );
@@ -174,10 +202,19 @@ namespace FairyRing
             // add some config options
             configMenu.AddBoolOption(
                 mod: ModManifest,
-                name: () => "Allow Death",
-                tooltip: () => "Chance to trigger death when collecting a Fairy Ring product.",
+                name: () => StaticHelper.Translation.Get("ConfigDeath.Name"),
+                tooltip: () => StaticHelper.Translation.Get("ConfigDeath.Desc"),
                 getValue: () => Config.AllowDeath,
                 setValue: value => Config.AllowDeath = value
+            );
+
+            // add some config options
+            configMenu.AddBoolOption(
+                mod: ModManifest,
+                name: () => StaticHelper.Translation.Get("ConfigFairyDust.Name"),
+                tooltip: () => StaticHelper.Translation.Get("ConfigFairyDust.Desc"),
+                getValue: () => Config.AllowFairyDust,
+                setValue: value => Config.AllowFairyDust = value
             );
         }
     }

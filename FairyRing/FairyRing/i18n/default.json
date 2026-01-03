@@ -1,0 +1,14 @@
+{
+    "UsesFairyRing": "A million voices are speaking at once... How dare you use our own magic to exploit us!",
+    "CombustRing": "You hear laughter in the distance. The Fairy Ring has spontaneously combusted!",
+
+    "ConfigDebuff.Name": "Allow Debuffs",
+    "ConfigDebuff.Desc": "Chance to get a debuff when collecting a Fairy Ring product.",
+
+    "ConfigDeath.Name": "Allow Death",
+    "ConfigDeath.Desc": "Chance to trigger death when collecting a Fairy Ring product.",
+
+    "ConfigFairyDust.Name": "Allow Use of Fairy Dust",
+    "ConfigFairyDust.Desc": "Can use Fairy Dust on a Fairy Ring. Mostly for debug purposes."
+
+}
