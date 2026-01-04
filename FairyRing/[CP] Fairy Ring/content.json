@@ -82,71 +82,37 @@
                   "UseFirstValidOutput": true,
                   "OutputItem": [
                       {
+                        "Id": "{{ModId}}_CommonRoll", 
+                        "RandomItemId": [ "(O)872", "(O)Moss" ],
+                        "Condition": "RANDOM .755",
+                        "MinStack": 1,
+                        "MaxStack": 5
+                      },
+
+                      {
+                        "Id": "{{ModId}}_RareRoll", 
+                        "RandomItemId": [ "(O)747", "(O)891", "(O)891", "(O)MossySeed", "(O)MossySeed" ],
+                        "Condition": "RANDOM .81633"
+                      },
+
+                      {
+                        "Id": "{{ModId}}_FurnitureOutput", 
+                        "CustomData": {
+                          "selph.ExtraMachineConfig.ExtraOutputIds": "ActualFurnitureOutput"
+                        },
+                        "ItemId": "selph.ExtraMachineConfig.Holder",
+                        "ObjectColor": "White",
+                        "Condition": "RANDOM .88889"
+                      },
+
+                      {
                       "Id": "{{ModId}}_MushroomCapOutput", 
                       "CustomData": {
                         "selph.ExtraMachineConfig.ExtraOutputIds": "ActualMushroomCapOutput"
                       },
                       "ItemId": "selph.ExtraMachineConfig.Holder",
-                      "ObjectColor":"White",
-                      "Condition": "RANDOM .005"
-                      },
-                      
-                      {
-                      "Id": "{{ModId}}_FurnitureOutput", 
-                      "CustomData": {
-                        "selph.ExtraMachineConfig.ExtraOutputIds": "ActualFurnitureOutput"
-                      },
-                      "ItemId": "selph.ExtraMachineConfig.Holder",
-                      "ObjectColor": "White",
-                      "Condition": "RANDOM .01"
-                      },
-
-                      {
-                      "Id": "{{ModId}}_BoxOutput", 
-                      "CustomData": {
-                        "selph.ExtraMachineConfig.ExtraOutputIds": "ActualBoxOutput"
-                      },
-                      "ItemId": "selph.ExtraMachineConfig.Holder",
-                      "ObjectColor": "White",
-                      "Condition": "RANDOM .01, PLAYER_STAT Current TrinketSlots 1"
-                      },
-
-                      {
-                      "Id": "{{ModId}}_RottenPlantOutput",
-                      "RandomItemId": [ "(O)747", "(O)748" ],
-                      "Condition": "RANDOM .05",
-                      "MinStack": 1
-                      },
-
-                      {
-                      "Id": "{{ModId}}_MushroomTreeSeedOutput",
-                      "ItemId": "(O)891",
-                      "Condition": "RANDOM .075",
-                      "MinStack": 1
-                      },
-
-                      {
-                      "Id": "{{ModId}}_MossySeedOutput",
-                      "ItemId": "(O)MossySeed",
-                      "Condition": "RANDOM .1",
-                      "MinStack": 1
-                      },
-
-                      {
-                      "Id": "{{ModId}}_FairyDustOutput", 
-                      "ItemId": "(O)872",
-                      "Condition": "RANDOM .5",
-                      "MinStack": 1,
-                      "MaxStack": 3
-                      },
-
-                    {
-                    "Id": "{{ModId}}_MossOutput",
-                    "ItemId": "(O)Moss",
-                    "MinStack": 3,
-                    "MaxStack": 10
-                    }
-                      
+                      "ObjectColor":"White"
+                      }
 
                   ],
                   "DaysUntilReady": 1
@@ -171,13 +137,9 @@
         "ActualMushroomCapOutput": {
           "ItemId": "(H)42"
         },
+
          "ActualFurnitureOutput": {
-          "RandomItemId": [ "(F)PottedRedMushroom", "(F)JunimoLamp", "(F)FancyTree1", "(F)FancyTree2", "(F)FancyTree3", "(F)FancyHousePlant1", "(F)FancyHousePlant2", "(F)FancyHousePlant3", "(F)FancyHousePlant4", "(F)FancyHousePlant5"]
-          
-        },
-        "ActualBoxOutput": {
-          "ItemId": "(TR)FairyBox"
-          
+          "RandomItemId": [ "(F)PottedRedMushroom", "(F)JunimoLamp", "(F)FancyTree1", "(F)FancyTree2", "(F)FancyTree3", "(F)FancyHousePlant1", "(F)FancyHousePlant2", "(F)FancyHousePlant3", "(F)FancyHousePlant4", "(F)FancyHousePlant5"] 
         }
       }
     },
