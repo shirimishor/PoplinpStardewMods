@@ -6,5 +6,12 @@
     "UniqueID": "Poplinp.CP_FairyRing",
     "ContentPackFor": {
         "UniqueID": "Pathoschild.ContentPatcher"
-    }
+    },
+    "Dependencies": [
+        {
+        "UniqueID": "Selph.ExtraMachineConfig",
+        "IsRequired": true
+        }
+    ],
+    "UpdateKeys": [ "Nexus:40847" ]
 }
