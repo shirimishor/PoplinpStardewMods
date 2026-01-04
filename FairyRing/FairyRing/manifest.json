@@ -2,7 +2,7 @@
     "Name": "Fairy Ring",
     "Author": "Poplinp",
     "Version": "1.0.0",
-    "Description": "beta",
+    "Description": "Fairy Rings to receive rare items and some tricks",
     "UniqueID": "Poplinp.FairyRingHelper",
     "EntryDll": "FairyRing.dll",
     "MinimumApiVersion": "4.0.0",

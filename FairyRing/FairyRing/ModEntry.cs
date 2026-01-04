@@ -15,12 +15,10 @@ namespace FairyRing
 
         internal static ModConfig Config { get; private set; }
         private static IModHelper StaticHelper;
-        private static IMonitor StaticMonitor;
 
         public override void Entry(IModHelper helper)
         {
             StaticHelper = Helper;
-            StaticMonitor = Monitor;
 
             Config = Helper.ReadConfig<ModConfig>();
             helper.Events.GameLoop.GameLaunched += OnGameLaunched;
@@ -140,7 +138,6 @@ namespace FairyRing
         private static void OnMachineOutputCollected(SObject machine, Farmer who, Item output)
         {
             var debuff = RollDebuff();
-            StaticMonitor.Log($"Applying curse {debuff} ", LogLevel.Info);
             if (debuff == "death")
             {
                 who.takeDamage(9999, true, null);

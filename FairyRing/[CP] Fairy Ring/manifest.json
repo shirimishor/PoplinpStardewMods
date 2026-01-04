@@ -2,7 +2,7 @@
     "Name": "[CP] Fairy Ring",
     "Author": "Poplinp",
     "Version": "1.0.0",
-    "Description": "beta",
+    "Description": "Fairy Rings to receive rare items and some tricks",
     "UniqueID": "Poplinp.CP_FairyRing",
     "ContentPackFor": {
         "UniqueID": "Pathoschild.ContentPatcher"
