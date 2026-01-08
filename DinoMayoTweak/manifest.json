@@ -1,0 +1,12 @@
+{
+    "Name": "Dino Mayo Tweak",
+    "Author": "Poplinp",
+    "Version": "1.0.0",
+    "Description": "Tweaks Dino Mayo sell price with the Treasure Appraisal Guide book.",
+    "UniqueID": "Poplinp.DinoMayoTweak",
+    "EntryDll": "DinoMayoTweak.dll",
+    "MinimumApiVersion": "4.0.0",
+    "UpdateKeys": [
+        "Nexus:40992"
+    ]
+}
