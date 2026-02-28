@@ -15,11 +15,11 @@ namespace HatsOnAnimals
     public static class AnimalDrawPatch
     {
 
-        public static AnimalDictData chickenData = new AnimalDictData("Chicken", false);
-        public static AnimalDictData rabbitData = new AnimalDictData("Rabbit", false);
+        public static AnimalDictData chickenData = new AnimalDictData("Chicken", false, 1);
+        public static AnimalDictData rabbitData = new AnimalDictData("Rabbit", false, 1);
+        public static AnimalDictData cowData = new AnimalDictData("Cow", false);
 
 
-        
 
         internal static void TryDrawHat(FarmAnimal animal, SpriteBatch b)
         {
@@ -68,6 +68,7 @@ namespace HatsOnAnimals
             int frame = animal.Sprite.CurrentFrame;
             string type = animal.type.ToString();
             if (isChicken(type)) type = "Chicken";
+            if (isCow(type)) type = "Cow";
 
             AnimalDictData animalData = new AnimalDictData(type, false); 
 
@@ -80,6 +81,15 @@ namespace HatsOnAnimals
                     AnimalDicts.InitChickenOffsetData(chickenData);
                 }
                 animalData = chickenData;
+            }
+
+            if (type == "Cow")
+            {
+                if (!cowData.initialized)
+                {
+                    AnimalDicts.InitCowOffsetData(cowData);
+                }
+                animalData = cowData;
             }
 
             else if (type == "Rabbit")
@@ -115,9 +125,15 @@ namespace HatsOnAnimals
             }
 
             //fixing appearent expections
-            if (direction == 3 && frame >= 22 && frame <= 23) direction = 1;
-            if (direction == 3 && frame >= 20 && frame <= 21) direction = 0;
-            if (frame >= 16 && frame <= 17) direction = 2;
+
+            if (animalData.fixes == 1)
+            {
+                if (direction == 3 && frame >= 22 && frame <= 23) direction = 1;
+                if (direction == 3 && frame >= 20 && frame <= 21) direction = 0;
+                if (frame >= 16 && frame <= 17) direction = 2;
+            }
+
+
 
             return true;
         }
@@ -125,6 +141,11 @@ namespace HatsOnAnimals
         public static bool isChicken(string type)
         {
             return (type == "White Chicken" || type == "Brown Chicken" || type == "Blue Chicken" || type == "Golden Chicken" || type == "Void Chicken");
+        }
+
+        public static bool isCow(string type)
+        {
+            return (type == "White Cow" || type == "Brown Cow");
         }
 
         public static void draw_Postfix(FarmAnimal __instance, SpriteBatch b)

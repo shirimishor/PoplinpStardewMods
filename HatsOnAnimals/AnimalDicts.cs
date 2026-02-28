@@ -78,5 +78,32 @@ namespace HatsOnAnimals
             animalData.initialized = true;
 
         }
+
+        public static void InitCowOffsetData(AnimalDictData animalData)
+        {
+            // DOWN
+            animalData.Add4FrameAnimation(0, 29, 10, 2, 25, 10);
+            // unique down
+            animalData.CloneFrame(12, 0);
+            animalData.CloneFrame(13, 0);
+            // eating
+            animalData.CloneFrame(16, 0);
+            animalData.AddFrame(17, 29, 14, 2, 25, 14);
+            animalData.AddFrame(18, 29, 18, 2, 25, 18);
+            animalData.CloneFrame(19, 18);
+
+            // RIGHT 
+            animalData.Add4FrameAnimation(4, 63, -2, 1, -9, -2);
+            // unique right
+            animalData.CloneFrame(14, 4);
+
+            // UP
+            animalData.Add4FrameAnimation(8, 29, -38, 0, 25, -38);
+            // unique up
+            animalData.CloneFrame(15, 8);
+
+            animalData.initialized = true;
+
+        }
     }
 }

@@ -6,13 +6,15 @@ public class AnimalDictData
     public Dictionary<int, FrameOffsetData> offsets;
     public bool isBaby;
     public bool initialized;
+    public int fixes;
 
-    public AnimalDictData(string type, bool isBaby)
+    public AnimalDictData(string type, bool isBaby, int fixes = 0)
     {
         this.type = type;
         this.isBaby = isBaby;
         this.initialized = false;
         this.offsets = new Dictionary<int, FrameOffsetData>();
+        this.fixes = fixes;
     }
 
     public AnimalDictData(AnimalDictData other)
