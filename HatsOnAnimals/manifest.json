@@ -1,0 +1,9 @@
+{
+    "Name": "Hats On Animals",
+    "Author": "Poplinp",
+    "Version": "1.0.0",
+    "Description": "Place hats on your farm animals",
+    "UniqueID": "Poplinp.HatsOnAnimals",
+    "EntryDll": "HatsOnAnimals.dll",
+    "MinimumApiVersion": "4.0.0"
+}
