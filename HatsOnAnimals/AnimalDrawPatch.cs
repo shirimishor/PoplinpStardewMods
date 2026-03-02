@@ -18,6 +18,10 @@ namespace HatsOnAnimals
         public static AnimalDictData chickenData = new AnimalDictData("Chicken", false, 1);
         public static AnimalDictData rabbitData = new AnimalDictData("Rabbit", false, 1);
         public static AnimalDictData cowData = new AnimalDictData("Cow", false);
+        public static AnimalDictData goatData = new AnimalDictData("Goat", false);
+        public static AnimalDictData pigData = new AnimalDictData("Pig", false);
+        public static AnimalDictData sheepData = new AnimalDictData("Sheep", false);
+
 
 
 
@@ -83,7 +87,7 @@ namespace HatsOnAnimals
                 animalData = chickenData;
             }
 
-            if (type == "Cow")
+            else if (type == "Cow")
             {
                 if (!cowData.initialized)
                 {
@@ -99,6 +103,33 @@ namespace HatsOnAnimals
                     AnimalDicts.InitRabbitOffsetData(rabbitData);
                 }
                 animalData = rabbitData;
+            }
+
+            else if (type == "Goat")
+            {
+                if (!goatData.initialized)
+                {
+                    AnimalDicts.InitGoatOffsetData(goatData);
+                }
+                animalData = goatData;
+            }
+
+            else if (type == "Pig")
+            {
+                if (!pigData.initialized)
+                {
+                    AnimalDicts.InitPigOffsetData(pigData);
+                }
+                animalData = pigData;
+            }
+
+            else if (type == "Sheep")
+            {
+                if (!sheepData.initialized)
+                {
+                    AnimalDicts.InitSheepOffsetData(sheepData);
+                }
+                animalData = sheepData;
             }
 
             if (!animalData.offsets.TryGetValue(frame, out var data))
