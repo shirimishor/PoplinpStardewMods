@@ -21,6 +21,7 @@ namespace HatsOnAnimals
         public static AnimalDictData goatData = new AnimalDictData("Goat", false);
         public static AnimalDictData pigData = new AnimalDictData("Pig", false);
         public static AnimalDictData sheepData = new AnimalDictData("Sheep", false);
+        public static AnimalDictData ostrichData = new AnimalDictData("Ostrich", false);
 
 
 
@@ -130,6 +131,15 @@ namespace HatsOnAnimals
                     AnimalDicts.InitSheepOffsetData(sheepData);
                 }
                 animalData = sheepData;
+            }
+
+            else if (type == "Ostrich")
+            {
+                if (!ostrichData.initialized)
+                {
+                    AnimalDicts.InitOstrichOffsetData(ostrichData);
+                }
+                animalData = ostrichData;
             }
 
             if (!animalData.offsets.TryGetValue(frame, out var data))

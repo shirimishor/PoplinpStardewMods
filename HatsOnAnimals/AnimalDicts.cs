@@ -186,5 +186,35 @@ namespace HatsOnAnimals
             animalData.initialized = true;
 
         }
+
+        public static void InitOstrichOffsetData(AnimalDictData animalData)
+        {
+            // DOWN
+            animalData.Add4FrameAnimation(0, 27, -58, 2);
+            // unique down
+            animalData.CloneFrame(12, 0);
+            animalData.CloneFrame(13, 0);
+            // eating
+            animalData.AddFrame(16, 27, -26, 2);
+            animalData.AddFrame(17, 27, 14, 2);
+            animalData.AddFrame(18, 27, 34, 2);
+            animalData.AddFrame(19, 27, 30, 2);
+
+            // RIGHT 
+            animalData.AddFrame(4, 59, -54, 1, -5, -54);
+            animalData.AddFrame(5, 63, -54, 1, -9, -54);
+            animalData.CloneFrame(6, 4);
+            animalData.CloneFrame(7, 5);
+            // unique right
+            animalData.CloneFrame(14, 4);
+
+            // UP
+            animalData.Add4FrameAnimation(8, 27, -62, 0);
+            // unique up
+            animalData.AddFrame(15, 31, -62, 0, 23, -62);
+
+            animalData.initialized = true;
+
+        }
     }
 }
