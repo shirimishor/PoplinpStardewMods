@@ -45,25 +45,44 @@ public static class AnimalQueryMenuPatch
         if (!Buttons.TryGetValue(__instance, out ClickableTextureComponent removeHatButton))
             return;
 
-        if (!removeHatButton.containsPoint(x, y))
-            return;
-
         var animalField = AccessTools.Field(typeof(AnimalQueryMenu), "animal");
         FarmAnimal animal = (FarmAnimal)animalField.GetValue(__instance);
 
         if (animal == null)
             return;
 
-        if (!animal.modData.TryGetValue(HatKey, out string hatId))
+        // remove button interaction
+        if (removeHatButton.containsPoint(x, y))
+        {
+
+            if (!animal.modData.TryGetValue(HatKey, out string hatId))
+                return;
+
+            StardewValley.Objects.Hat hat = new StardewValley.Objects.Hat(hatId);
+            Game1.createItemDebris(hat, animal.Position, -1);
+            animal.modData.Remove(HatKey);
+
+            Game1.playSound("dirtyHit");
+
+            Game1.exitActiveMenu();
             return;
 
-        StardewValley.Objects.Hat hat = new StardewValley.Objects.Hat(hatId);
-        Game1.createItemDebris(hat, animal.Position, -1);
-        animal.modData.Remove(HatKey);
+        }
 
-        Game1.playSound("dirtyHit");
+        // remove hat on sale
+        if (__instance.confirmingSell)
+        {
+            if (__instance.yesButton.containsPoint(x, y))
+            {
+                if (!animal.modData.TryGetValue("Poplinp.HatsOnAnimals.HatId", out string hatId))
+                    return;
 
-        Game1.exitActiveMenu();
+                StardewValley.Objects.Hat hat = new StardewValley.Objects.Hat(hatId);
+                Game1.createItemDebris(hat, animal.Position, -1);
+                animal.modData.Remove(HatKey);
+            }
+        }
+
     }
 
 
@@ -88,6 +107,8 @@ public static class AnimalQueryMenuPatch
             __instance.drawMouse(b);
         }
     }
+
+    
 
 
 

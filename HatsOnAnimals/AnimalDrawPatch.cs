@@ -15,15 +15,16 @@ namespace HatsOnAnimals
     public static class AnimalDrawPatch
     {
 
-        public static AnimalDictData chickenData = new AnimalDictData("Chicken", false, 1);
-        public static AnimalDictData rabbitData = new AnimalDictData("Rabbit", false, 1);
-        public static AnimalDictData cowData = new AnimalDictData("Cow", false);
-        public static AnimalDictData goatData = new AnimalDictData("Goat", false);
-        public static AnimalDictData pigData = new AnimalDictData("Pig", false);
-        public static AnimalDictData sheepData = new AnimalDictData("Sheep", false);
-        public static AnimalDictData ostrichData = new AnimalDictData("Ostrich", false);
-
-
+        public static Dictionary<string, AnimalDictData> animalDictsByType  = new Dictionary<string, AnimalDictData>
+        {
+            {"Chicken",  new AnimalDictData("Chicken", false, 1)},
+            {"Rabbit",  new AnimalDictData("Rabbit", false, 1)},
+            {"Cow",  new AnimalDictData("Cow", false)},
+            {"Goat",  new AnimalDictData("Goat", false)},
+            {"Pig",  new AnimalDictData("Pig", false)},
+            {"Sheep",  new AnimalDictData("Sheep", false)},
+            {"Ostrich",  new AnimalDictData("Ostrich", false)}
+        };
 
 
         internal static void TryDrawHat(FarmAnimal animal, SpriteBatch b)
@@ -75,72 +76,9 @@ namespace HatsOnAnimals
             if (isChicken(type)) type = "Chicken";
             if (isCow(type)) type = "Cow";
 
-            AnimalDictData animalData = new AnimalDictData(type, false); 
-
-
-
-            if (type == "Chicken")
-            {
-                if (!chickenData.initialized)
-                {
-                    AnimalDicts.InitChickenOffsetData(chickenData);
-                }
-                animalData = chickenData;
-            }
-
-            else if (type == "Cow")
-            {
-                if (!cowData.initialized)
-                {
-                    AnimalDicts.InitCowOffsetData(cowData);
-                }
-                animalData = cowData;
-            }
-
-            else if (type == "Rabbit")
-            {
-                if (!rabbitData.initialized)
-                {
-                    AnimalDicts.InitRabbitOffsetData(rabbitData);
-                }
-                animalData = rabbitData;
-            }
-
-            else if (type == "Goat")
-            {
-                if (!goatData.initialized)
-                {
-                    AnimalDicts.InitGoatOffsetData(goatData);
-                }
-                animalData = goatData;
-            }
-
-            else if (type == "Pig")
-            {
-                if (!pigData.initialized)
-                {
-                    AnimalDicts.InitPigOffsetData(pigData);
-                }
-                animalData = pigData;
-            }
-
-            else if (type == "Sheep")
-            {
-                if (!sheepData.initialized)
-                {
-                    AnimalDicts.InitSheepOffsetData(sheepData);
-                }
-                animalData = sheepData;
-            }
-
-            else if (type == "Ostrich")
-            {
-                if (!ostrichData.initialized)
-                {
-                    AnimalDicts.InitOstrichOffsetData(ostrichData);
-                }
-                animalData = ostrichData;
-            }
+            //AnimalDictData animalData = new AnimalDictData(type, false);
+            animalDictsByType.TryGetValue(type, out AnimalDictData animalData);
+            AnimalDicts.initOffsetData(animalData);
 
             if (!animalData.offsets.TryGetValue(frame, out var data))
                 return true;
