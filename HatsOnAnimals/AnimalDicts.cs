@@ -11,9 +11,43 @@ namespace HatsOnAnimals
             if (animalData.initialized) return;
 
 
-            if (animalData.type == "Chicken" && !animalData.isBaby)
+            if (animalData.type == "Chicken")
             {
-                if (animalData.initialized) return;
+                if (animalData.isBaby)
+                {
+                    // DOWN
+                    animalData.Add4FrameAnimation(0, -8, -30, 2, -4, -30);
+                    // unique down
+                    animalData.AddFrame(16, -8, -26, 2, -4, -26);
+                    animalData.AddFrame(17, -8, -22, 2, -4, -22);
+                    // eating
+                    animalData.CloneFrame(24, 16);
+                    animalData.CloneFrame(25, 17);
+                    animalData.AddFrame(26, -8, -18, 2, -4, -18);
+                    animalData.CloneFrame(27, 17);
+
+
+                    // RIGHT
+                    animalData.Add4FrameAnimation(4, 2, -26, 1, -10, -26);
+                    // unique right
+                    animalData.CloneFrame(18, 4);
+                    animalData.AddFrame(19, 2, -22, 1, -10, -22);
+
+                    // UP
+                    animalData.Add4FrameAnimation(8, -8, -46, 0, -4, -46);
+                    // unique up
+                    animalData.CloneFrame(20, 8);
+                    animalData.CloneFrame(21, 8);
+
+                    // LEFT
+                    animalData.Add4FrameAnimation(12, 2, -26, 3, -10, -26);
+                    // unique left
+                    animalData.AddFrame(22, 2, -30, 3, -10, -30);
+                    animalData.CloneFrame(23, 12);
+
+                    animalData.DoubleFrames();
+                    return;
+                }
 
                 // DOWN
                 animalData.Add4FrameAnimation(0, -14, -54, 2);
@@ -47,8 +81,111 @@ namespace HatsOnAnimals
                 return;
             }
 
-            else if (animalData.type == "Rabbit" && !animalData.isBaby)
+            else if (animalData.type == "Duck")
             {
+                if (animalData.isBaby)
+                {
+                    // DOWN
+                    animalData.Add4FrameAnimation(0, -8, -30, 2, -4, -30);
+                    // unique down
+                    animalData.AddFrame(16, -8, -26, 2, -4, -26);
+                    animalData.AddFrame(17, -8, -22, 2, -4, -22);
+                    // eating
+                    animalData.CloneFrame(24, 16);
+                    animalData.CloneFrame(25, 17);
+                    animalData.AddFrame(26, -8, -18, 2, -4, -18);
+                    animalData.CloneFrame(27, 17);
+
+
+                    // RIGHT
+                    animalData.Add4FrameAnimation(4, 2, -26, 1, -10, -26);
+                    // unique right
+                    animalData.CloneFrame(18, 4);
+                    animalData.AddFrame(19, 2, -22, 1, -10, -22);
+
+                    // UP
+                    animalData.Add4FrameAnimation(8, -8, -46, 0, -4, -46);
+                    // unique up
+                    animalData.CloneFrame(20, 8);
+                    animalData.CloneFrame(21, 8);
+
+                    // LEFT
+                    animalData.Add4FrameAnimation(12, 2, -26, 3, -10, -26);
+                    // unique left
+                    animalData.AddFrame(22, 2, -30, 3, -10, -30);
+                    animalData.CloneFrame(23, 12);
+
+                    animalData.DoubleFrames();
+                    return;
+                }
+                // DOWN
+                animalData.Add4FrameAnimation(0, -14, -58, 2, 2, -58);
+                // unique down
+                animalData.AddFrame(16, -14, -50, 2, 2, -50);
+                animalData.CloneFrame(17, 16);
+                // eating
+                animalData.CloneFrame(24, 16);
+                animalData.AddFrame(25, -14, -42, 2, 2, -42);
+                animalData.AddFrame(26, -14, -26, 2, 2, -26);
+                animalData.AddFrame(27, -14, -30, 2, 2, -30);
+
+                // RIGHT
+                animalData.Add4FrameAnimation(4, 2, -50, 1, -14, -50);
+                // unique right
+                animalData.AddFrame(18, 2, -46, 1, -14, -46);
+                animalData.AddFrame(19, 2, -42, 1, -14, -42);
+
+                // UP
+                animalData.Add4FrameAnimation(8, 6, -58, 0, -18, -58);
+                // unique up
+                animalData.AddFrame(20, 6, -54, 0, -18, -54);
+                animalData.AddFrame(21, 6, -50, 0, -18, -50);
+
+                // LEFT
+                animalData.Add4FrameAnimation(12, 2, -50, 3, -14, -50);
+                // unique left
+                animalData.AddFrame(22, 2, -50, 3, -14, -50);
+                animalData.AddFrame(23, 2, -50, 3, -14, -50);
+
+                animalData.DoubleFrames();
+                return;
+            }
+
+            else if (animalData.type == "Rabbit")
+            {
+                if (animalData.isBaby)
+                {
+                    // DOWN
+                    animalData.Add4FrameAnimation(0, -6, -30, 2);
+                    // unique down
+                    animalData.CloneFrame(16, 0);
+                    animalData.CloneFrame(17, 0);
+                    // eating
+                    animalData.CloneFrame(24, 0);
+                    animalData.AddFrame(25, -6, -26, 2);
+                    animalData.CloneFrame(26, 25);
+                    animalData.CloneFrame(27, 25);
+
+                    // RIGHT 
+                    animalData.Add4FrameAnimation(4, 6, -22, 1, -18, -22);
+                    // unique right
+                    animalData.CloneFrame(18, 4);
+                    animalData.CloneFrame(19, 4);
+
+                    // UP
+                    animalData.Add4FrameAnimation(8, -6, -50, 0);
+                    // unique up
+                    animalData.CloneFrame(20, 8);
+                    animalData.CloneFrame(21, 8);
+
+                    // LEFT
+                    animalData.Add4FrameAnimation(12, 6, -22, 3, -18, -22);
+                    // unique left
+                    animalData.CloneFrame(22, 12);
+                    animalData.CloneFrame(23, 12);
+                    return;
+                }
+
                 // DOWN
                 animalData.Add4FrameAnimation(0, -8, -30, 2, -4, -30);
                 // unique down
@@ -73,7 +210,7 @@ namespace HatsOnAnimals
                 animalData.CloneFrame(21, 8);
 
                 // LEFT
-                animalData.Add4FrameAnimation(12, -22, -34, 3, 10, -34);
+                animalData.Add4FrameAnimation(12, 10, -34, 3, -22, -34);
                 // unique left
                 animalData.CloneFrame(22, 12);
                 animalData.CloneFrame(23, 12);
@@ -113,7 +250,7 @@ namespace HatsOnAnimals
                 return;
             }
 
-            else if (animalData.type == "Cow") 
+            else if (animalData.type == "Cow")
             {
                 if (animalData.isBaby)
                 {
@@ -163,7 +300,7 @@ namespace HatsOnAnimals
                 return;
 
 
-            } 
+            }
 
             else if (animalData.type == "Goat")
             {
@@ -241,7 +378,7 @@ namespace HatsOnAnimals
                     animalData.AddFrame(15, 31, -34, 0, 23, -34);
                     return;
                 }
-                
+
                 // DOWN
                 animalData.Add4FrameAnimation(0, 29, 10, 2, 25, 10);
                 // unique down

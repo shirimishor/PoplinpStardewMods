@@ -48,5 +48,13 @@ public class AnimalDictData
         this.CloneFrame(startingFrame + 3, startingFrame + 1);
     }
 
+    public void DoubleFrames()
+    {
+        for (int i = 0; i < 29; i++)
+        {
+            this.CloneFrame(i+28, i);
+        }
+    }
+
 }
 

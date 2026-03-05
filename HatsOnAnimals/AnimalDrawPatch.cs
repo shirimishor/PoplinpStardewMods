@@ -18,6 +18,7 @@ namespace HatsOnAnimals
         public static Dictionary<string, AnimalDictData> animalDictsByType  = new Dictionary<string, AnimalDictData>
         {
             {"Chicken",  new AnimalDictData("Chicken", false, 1)},
+            {"Duck",  new AnimalDictData("Duck", false, 2)},
             {"Rabbit",  new AnimalDictData("Rabbit", false, 1)},
             {"Dinosaur",  new AnimalDictData("Dinosaur", false)},
             {"Cow",  new AnimalDictData("Cow", false)},
@@ -30,6 +31,7 @@ namespace HatsOnAnimals
         public static Dictionary<string, AnimalDictData> animalBabyDictsByType = new Dictionary<string, AnimalDictData>
         {
             {"Chicken",  new AnimalDictData("Chicken", true, 1)},
+            {"Duck",  new AnimalDictData("Duck", true, 2)},
             {"Rabbit",  new AnimalDictData("Rabbit", true, 1)},
             {"Dinosaur",  new AnimalDictData("Dinosaur", true)},
             {"Cow",  new AnimalDictData("Cow", true)},
@@ -126,6 +128,14 @@ namespace HatsOnAnimals
                 if (direction == 3 && frame >= 22 && frame <= 23) direction = 1;
                 if (direction == 3 && frame >= 20 && frame <= 21) direction = 0;
                 if (frame >= 16 && frame <= 17) direction = 2;
+            }
+
+            if (animalData.fixes == 2)
+            {
+                if (direction == 3 && frame >= 20 && frame <= 21) direction = 0;
+                if (frame >= 16 && frame <= 17) direction = 2;
+                if (frame >= 22 && frame <= 23) direction = 2;
+                if (frame >= 50 && frame <= 51) direction = 2;
             }
 
 
