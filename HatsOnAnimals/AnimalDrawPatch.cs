@@ -19,11 +19,24 @@ namespace HatsOnAnimals
         {
             {"Chicken",  new AnimalDictData("Chicken", false, 1)},
             {"Rabbit",  new AnimalDictData("Rabbit", false, 1)},
+            {"Dinosaur",  new AnimalDictData("Dinosaur", false)},
             {"Cow",  new AnimalDictData("Cow", false)},
             {"Goat",  new AnimalDictData("Goat", false)},
             {"Pig",  new AnimalDictData("Pig", false)},
             {"Sheep",  new AnimalDictData("Sheep", false)},
             {"Ostrich",  new AnimalDictData("Ostrich", false)}
+        };
+
+        public static Dictionary<string, AnimalDictData> animalBabyDictsByType = new Dictionary<string, AnimalDictData>
+        {
+            {"Chicken",  new AnimalDictData("Chicken", true, 1)},
+            {"Rabbit",  new AnimalDictData("Rabbit", true, 1)},
+            {"Dinosaur",  new AnimalDictData("Dinosaur", true)},
+            {"Cow",  new AnimalDictData("Cow", true)},
+            {"Goat",  new AnimalDictData("Goat", true)},
+            {"Pig",  new AnimalDictData("Pig", true)},
+            {"Sheep",  new AnimalDictData("Sheep", true)},
+            {"Ostrich",  new AnimalDictData("Ostrich", true)}
         };
 
 
@@ -76,8 +89,11 @@ namespace HatsOnAnimals
             if (isChicken(type)) type = "Chicken";
             if (isCow(type)) type = "Cow";
 
-            //AnimalDictData animalData = new AnimalDictData(type, false);
-            animalDictsByType.TryGetValue(type, out AnimalDictData animalData);
+            AnimalDictData animalData;
+
+            if (animal.isBaby()) animalBabyDictsByType.TryGetValue(type, out animalData);
+            else animalDictsByType.TryGetValue(type, out animalData);
+            
             AnimalDicts.initOffsetData(animalData);
 
             if (!animalData.offsets.TryGetValue(frame, out var data))
