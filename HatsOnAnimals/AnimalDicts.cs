@@ -10,7 +10,6 @@ namespace HatsOnAnimals
         {
             if (animalData.initialized) return;
 
-
             if (animalData.type == "Chicken")
             {
                 if (animalData.isBaby)
@@ -506,6 +505,9 @@ namespace HatsOnAnimals
             }
 
             animalData.initialized = true;
+
+
+
 
         }
 

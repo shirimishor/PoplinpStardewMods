@@ -93,16 +93,20 @@ namespace HatsOnAnimals
 
             AnimalDictData animalData;
 
-            if (animal.isBaby()) animalBabyDictsByType.TryGetValue(type, out animalData);
-            else animalDictsByType.TryGetValue(type, out animalData);
-            
+            if (animal.isBaby())
+            {
+                if (!animalBabyDictsByType.TryGetValue(type, out animalData)) return false;
+            }
+            else
+            {
+                if (!animalDictsByType.TryGetValue(type, out animalData)) return false;
+            }
+
             AnimalDicts.initOffsetData(animalData);
 
             if (!animalData.offsets.TryGetValue(frame, out var data))
                 return true;
 
-            if (data.disable)
-                return false;
 
             bool flip = (animal.FacingDirection != data.direction);
             direction = animal.FacingDirection;
@@ -173,6 +177,8 @@ namespace HatsOnAnimals
                 if (who.CurrentItem is not Hat hatItem)
                     return true;
 
+
+                if (!animalDictsByType.ContainsKey(__instance.type.ToString())) return true;
 
                 if (__instance.modData.TryGetValue("Poplinp.HatsOnAnimals.HatId", out string existingHatId))
                 {
