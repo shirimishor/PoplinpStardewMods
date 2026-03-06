@@ -177,8 +177,11 @@ namespace HatsOnAnimals
                 if (who.CurrentItem is not Hat hatItem)
                     return true;
 
+                string type = __instance.type.ToString();
+                if (isChicken(type)) type = "Chicken";
+                if (isCow(type)) type = "Cow";
 
-                if (!animalDictsByType.ContainsKey(__instance.type.ToString())) return true;
+                if (!animalDictsByType.ContainsKey(type)) return true;
 
                 if (__instance.modData.TryGetValue("Poplinp.HatsOnAnimals.HatId", out string existingHatId))
                 {
