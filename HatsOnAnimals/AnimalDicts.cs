@@ -242,9 +242,9 @@ namespace HatsOnAnimals
                 animalData.CloneFrame(21, 8);
 
                 // LEFT
-                animalData.Add4FrameAnimation(12, -22, -34, 3, 10, -34);
+                animalData.Add4FrameAnimation(12, 10, -34, 3, -22, -34);
                 // unique left
-                animalData.AddFrame(22, -22, -26, 3, 10, -26);
+                animalData.AddFrame(22, 10, -26, 3, -22, -26);
                 animalData.CloneFrame(23, 22);
                 return;
             }
