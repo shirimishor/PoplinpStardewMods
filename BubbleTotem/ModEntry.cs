@@ -135,7 +135,6 @@ namespace BubbleTotem
                 return;
             }
 
-            StaticMonitor.Log("Using totem", LogLevel.Debug);
 
             __result = bubblerAction(Game1.player, location); 
         }
@@ -152,10 +151,7 @@ namespace BubbleTotem
                 ? 7  // Horizontal
                 : 6; // Vertical
 
-            StaticMonitor.Log(
-                $"Searching up to {maxDistance} tiles away",
-                LogLevel.Debug
-            );
+
 
 
             for (int distance = maxDistance; distance > 0; distance--)
@@ -179,12 +175,28 @@ namespace BubbleTotem
                     continue;
                 }
 
-                CreateBubbles(gameLocation, bubbleTile);
+                Game1.playSound("bubbles");
+                TemporaryAnimatedSprite sprite = new TemporaryAnimatedSprite(0, 9999f, 1, 999, Game1.player.Position + new Vector2(0f, -96f), flicker: false, flipped: false, verticalFlipped: false, 0f)
+                {
+                    motion = new Vector2(0f, -1f),
+                    scaleChange = 0.01f,
+                    alpha = 1f,
+                    alphaFade = 0.0075f,
+                    shakeIntensity = 1f,
+                    initialPosition = Game1.player.Position + new Vector2(0f, -96f),
+                    xPeriodic = true,
+                    xPeriodicLoopTime = 1000f,
+                    xPeriodicRange = 4f,
+                    layerDepth = 1f
+                };
 
-                StaticMonitor.Log(
-                    $"Placed bubbles {distance} tiles away at ({tileX}, {tileY}); ",
-                    LogLevel.Debug
-                );
+                sprite.CopyAppearanceFromItemId("(O)Poplinp.BubbleTotem_BubbleTotem");
+                gameLocation.temporarySprites.Add(sprite);
+
+                Utility.addSprinklesToLocation(gameLocation, tileX, tileY, 6, 6, 1000, 50, Microsoft.Xna.Framework.Color.Cyan, null, motionTowardCenter: true);
+
+                CreateBubbles(gameLocation, bubbleTile);
+               
 
                 return true;
             }
@@ -239,10 +251,6 @@ namespace BubbleTotem
                     Microsoft.Xna.Framework.Point.Zero;
             }
 
-            StaticMonitor.Log(
-                "Totem bubbles expired",
-                LogLevel.Debug
-            );
 
             startBubblesTime = -1;
             totemBubblePoint = null;
@@ -264,10 +272,8 @@ namespace BubbleTotem
 
             startBubblesTime = Game1.timeOfDay;
 
-            StaticMonitor.Log(
-                $"Created bubbles at ({fishPoint.X}, {fishPoint.Y})",
-                LogLevel.Debug
-            );
+
+
         }
     }
 }
