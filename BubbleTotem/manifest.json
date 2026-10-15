@@ -1,0 +1,9 @@
+{
+    "Name": "Bubble Totem",
+    "Author": "Poplinp",
+    "Version": "1.0.0",
+    "Description": "A new totem to create your own fishing bubbles",
+    "UniqueID": "Poplinp.BubbleTotem",
+    "EntryDll": "BubbleTotem.dll",
+    "MinimumApiVersion": "4.5.0"
+}
