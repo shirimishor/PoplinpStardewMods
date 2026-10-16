@@ -7,6 +7,9 @@
     "ConfigDuration.Desc": "Amount of in-game minutes for the bubbles to appear.",
 
     "ConfigAnimated.Name": "Animated Totem",
-    "ConfigAnimated.Desc": "Display animated bubbles over the totem sprite."
+    "ConfigAnimated.Desc": "Display animated bubbles over the totem sprite.",
+
+    "ConfigMaxTile.Name": "Max Distance of Bubbles",
+    "ConfigMaxTile.Desc": "How many tiles away from the farmer should the bubbles try to spawn."
 
 }

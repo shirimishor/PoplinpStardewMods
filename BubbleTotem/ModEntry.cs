@@ -162,10 +162,23 @@ namespace BubbleTotem
 
             if (e.NameWithoutLocale.Name.Equals("Mods/Poplinp.BubbleTotem/Objects"))
             {
-                e.LoadFromModFile<Texture2D>(
+
+                if (Config.animatedTotem)
+                {
+                    e.LoadFromModFile<Texture2D>(
                     "assets/totem-sprite.png",
                     AssetLoadPriority.Medium
-                );
+                    );
+                }
+                else 
+                {
+                    e.LoadFromModFile<Texture2D>(
+                    "assets/totem-sprite-freeze.png",
+                    AssetLoadPriority.Medium
+                    );
+                }
+
+                
             }
 
             if (e.NameWithoutLocale.Name.Equals("Mods/Poplinp.BubbleTotem/Animation"))
@@ -205,8 +218,8 @@ namespace BubbleTotem
 
             int maxDistance = (who.FacingDirection == 1 ||
                                who.FacingDirection == 3)
-                ? 7  // Horizontal
-                : 6; // Vertical
+                ? Config.bubblesMaxTile+1  // Horizontal
+                : Config.bubblesMaxTile; // Vertical
 
 
 
@@ -354,7 +367,7 @@ namespace BubbleTotem
                 );
 
             const int frameSize = 16;
-            const int frameCount = 5;
+            const int frameCount = 10;
             const double frameDurationMs = 80.0;
 
             int frame = (int)(
@@ -400,7 +413,7 @@ namespace BubbleTotem
             );
 
             const int frameSize = 16;
-            const int frameCount = 5;
+            const int frameCount = 10;
             const double frameDurationMs = 80.0;
 
             int frame = (int)(
@@ -460,12 +473,33 @@ namespace BubbleTotem
                 interval: 10
             );
 
+            configMenu.AddNumberOption(
+                mod: this.ModManifest,
+                name: () => this.Helper.Translation.Get("ConfigMaxTile.Name"),
+                tooltip: () => this.Helper.Translation.Get("ConfigMaxTile.Desc"),
+                getValue: () => Config.bubblesMaxTile,
+                setValue: value => Config.bubblesMaxTile = value,
+                min: 2,
+                max: 7,
+                interval: 1
+            );
+
             configMenu.AddBoolOption(
                 mod: this.ModManifest,
                 name: () => this.Helper.Translation.Get("ConfigAnimated.Name"),
                 tooltip: () => this.Helper.Translation.Get("ConfigAnimated.Desc"),
                 getValue: () => Config.animatedTotem,
-                setValue: value => Config.animatedTotem = value
+                setValue: value => 
+                {
+                    if (Config.animatedTotem == value)
+                        return;
+
+                    Config.animatedTotem = value;
+
+                    Helper.GameContent.InvalidateCache(
+                        "Mods/Poplinp.BubbleTotem/Objects"
+                    );
+                }
             );
         }
     }
