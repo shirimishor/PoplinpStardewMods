@@ -4,6 +4,9 @@
     "BubbleTotem.Desc": "Activate to create bubbles in a body of water in front of you. Consumed on use.",
 
     "ConfigDuration.Name": "Duration of Bubbles",
-    "ConfigDuration.Desc": "Amount of in-game minutes for the bubbles to appear."
+    "ConfigDuration.Desc": "Amount of in-game minutes for the bubbles to appear.",
+
+    "ConfigAnimated.Name": "Animated Totem",
+    "ConfigAnimated.Desc": "Display animated bubbles over the totem sprite."
 
 }

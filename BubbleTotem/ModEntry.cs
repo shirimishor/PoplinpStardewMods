@@ -18,7 +18,8 @@ namespace BubbleTotem
     /// <summary>The mod entry point.</summary>
     internal sealed class ModEntry : Mod
     {
-        private ModConfig Config;
+        internal static ModConfig Config { get; private set; }
+        private static IModHelper StaticHelper;
 
         private static IMonitor StaticMonitor = null!;
 
@@ -35,10 +36,11 @@ namespace BubbleTotem
 
         public override void Entry(IModHelper helper)
         {
+            StaticHelper = Helper;
             StaticMonitor = Monitor;
             Reflection = helper.Reflection;
 
-            this.Config = this.Helper.ReadConfig<ModConfig>();
+            Config = StaticHelper.ReadConfig<ModConfig>();
 
             helper.Events.Content.AssetRequested += OnAssetRequested;
             helper.Events.GameLoop.TimeChanged += OnTimeChanged;
@@ -58,6 +60,47 @@ namespace BubbleTotem
                     nameof(performUseAction_Postfix)
                 )
             );
+
+            harmony.Patch(
+                original: AccessTools.Method(
+                    typeof(SObject),
+                    nameof(SObject.drawInMenu),
+                    new[]
+                    {
+                        typeof(SpriteBatch),
+                        typeof(Vector2),
+                        typeof(float),
+                        typeof(float),
+                        typeof(float),
+                        typeof(StackDrawType),
+                        typeof(Microsoft.Xna.Framework.Color),
+                        typeof(bool)
+                    }
+                ),
+                postfix: new HarmonyMethod(
+                    typeof(ModEntry),
+                    nameof(DrawInMenu_Postfix)
+                )
+            );
+
+            harmony.Patch(
+                original: AccessTools.Method(
+                    typeof(SObject),
+                    nameof(SObject.drawWhenHeld),
+                    new[]
+                    {
+                        typeof(SpriteBatch),
+                        typeof(Vector2),
+                        typeof(Farmer)
+                    }
+                ),
+                postfix: new HarmonyMethod(
+                    typeof(ModEntry),
+                    nameof(DrawWhenHeld_Postfix)
+                )
+            );
+
+
         }
 
         /*********
@@ -120,12 +163,20 @@ namespace BubbleTotem
             if (e.NameWithoutLocale.Name.Equals("Mods/Poplinp.BubbleTotem/Objects"))
             {
                 e.LoadFromModFile<Texture2D>(
-                    "assets/bubble-totem.png",
+                    "assets/totem-sprite.png",
                     AssetLoadPriority.Medium
                 );
             }
 
-            
+            if (e.NameWithoutLocale.Name.Equals("Mods/Poplinp.BubbleTotem/Animation"))
+            {
+                e.LoadFromModFile<Texture2D>(
+                    "assets/overlay-bubbles.png",
+                    AssetLoadPriority.Medium
+                );
+            }
+
+
         }
 
 
@@ -282,6 +333,106 @@ namespace BubbleTotem
 
         }
 
+        private static void DrawInMenu_Postfix(
+            SObject __instance,
+            SpriteBatch spriteBatch,
+            Vector2 location,
+            float scaleSize,
+            float transparency,
+            float layerDepth,
+            Microsoft.Xna.Framework.Color color)
+        {
+            if (!Config.animatedTotem || __instance.QualifiedItemId !=
+                "(O)Poplinp.BubbleTotem_BubbleTotem")
+            {
+                return;
+            }
+
+            Texture2D texture =
+                Game1.content.Load<Texture2D>(
+                    "Mods/Poplinp.BubbleTotem/Animation"
+                );
+
+            const int frameSize = 16;
+            const int frameCount = 5;
+            const double frameDurationMs = 80.0;
+
+            int frame = (int)(
+                Game1.currentGameTime.TotalGameTime.TotalMilliseconds
+                / frameDurationMs
+            ) % frameCount;
+
+            Microsoft.Xna.Framework.Rectangle sourceRect = new Microsoft.Xna.Framework.Rectangle(
+                frame * frameSize,
+                0,
+                frameSize,
+                frameSize
+            );
+
+            spriteBatch.Draw(
+                texture,
+                location + new Vector2(32f, 32f),
+                sourceRect,
+                color * transparency,
+                0f,
+                new Vector2(frameSize / 2f, frameSize / 2f),
+                4f * scaleSize,
+                SpriteEffects.None,
+                layerDepth + 0.00001f
+            );
+        }
+
+
+        private static void DrawWhenHeld_Postfix(
+            SObject __instance,
+            SpriteBatch spriteBatch,
+            Vector2 objectPosition,
+            Farmer f)
+        {
+            if (!Config.animatedTotem || __instance.QualifiedItemId !=
+                "(O)Poplinp.BubbleTotem_BubbleTotem")
+            {
+                return;
+            }
+
+            Texture2D texture = Game1.content.Load<Texture2D>(
+                "Mods/Poplinp.BubbleTotem/Animation"
+            );
+
+            const int frameSize = 16;
+            const int frameCount = 5;
+            const double frameDurationMs = 80.0;
+
+            int frame = (int)(
+                Game1.currentGameTime.TotalGameTime.TotalMilliseconds
+                / frameDurationMs
+            ) % frameCount;
+
+            Microsoft.Xna.Framework.Rectangle sourceRect = new Microsoft.Xna.Framework.Rectangle(
+                frame * frameSize,
+                0,
+                frameSize,
+                frameSize
+            );
+
+            float drawLayer = Math.Max(
+                0f,
+                (float)(f.StandingPixel.Y + 3) / 10000f
+            );
+
+            spriteBatch.Draw(
+                texture,
+                objectPosition,
+                sourceRect,
+                Microsoft.Xna.Framework.Color.White,
+                0f,
+                Vector2.Zero,
+                4f,
+                SpriteEffects.None,
+                drawLayer + 0.00001f
+            );
+        }
+
 
         private void OnGameLaunched(object sender, GameLaunchedEventArgs e)
         {
@@ -293,8 +444,8 @@ namespace BubbleTotem
             // register mod
             configMenu.Register(
                 mod: this.ModManifest,
-                reset: () => this.Config = new ModConfig(),
-                save: () => this.Helper.WriteConfig(this.Config)
+                reset: () => Config = new ModConfig(),
+                save: () => this.Helper.WriteConfig(Config)
             );
 
             // add some config options
@@ -302,13 +453,20 @@ namespace BubbleTotem
                 mod: this.ModManifest,
                 name: () => this.Helper.Translation.Get("ConfigDuration.Name"),
                 tooltip: () => this.Helper.Translation.Get("ConfigDuration.Desc"),
-                getValue: () => this.Config.bubblesLength,
-                setValue: value => this.Config.bubblesLength = value,
+                getValue: () => Config.bubblesLength,
+                setValue: value => Config.bubblesLength = value,
                 min: 10,
                 max: 600,
                 interval: 10
             );
 
+            configMenu.AddBoolOption(
+                mod: this.ModManifest,
+                name: () => this.Helper.Translation.Get("ConfigAnimated.Name"),
+                tooltip: () => this.Helper.Translation.Get("ConfigAnimated.Desc"),
+                getValue: () => Config.animatedTotem,
+                setValue: value => Config.animatedTotem = value
+            );
         }
     }
 }
