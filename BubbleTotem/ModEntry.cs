@@ -10,6 +10,7 @@ using StardewValley.Tools;
 using StardewValley.GameData.Objects;
 using HarmonyLib;
 using SObject = StardewValley.Object;
+using Microsoft.VisualBasic;
 
 
 namespace BubbleTotem
@@ -17,10 +18,11 @@ namespace BubbleTotem
     /// <summary>The mod entry point.</summary>
     internal sealed class ModEntry : Mod
     {
+        private ModConfig Config;
+
         private static IMonitor StaticMonitor = null!;
 
         private static int startBubblesTime = -1;
-        private static int bubblesLength = 30;
 
         private static GameLocation? bubblesLocation = null;
         private static Microsoft.Xna.Framework.Point? totemBubblePoint = null;
@@ -36,9 +38,13 @@ namespace BubbleTotem
             StaticMonitor = Monitor;
             Reflection = helper.Reflection;
 
+            this.Config = this.Helper.ReadConfig<ModConfig>();
+
             helper.Events.Content.AssetRequested += OnAssetRequested;
             helper.Events.GameLoop.TimeChanged += OnTimeChanged;
             helper.Events.GameLoop.UpdateTicked += OnUpdateTicked;
+            helper.Events.GameLoop.GameLaunched += OnGameLaunched;
+
 
             var harmony = new Harmony(ModManifest.UniqueID);
 
@@ -240,7 +246,7 @@ namespace BubbleTotem
                     Game1.timeOfDay
                 );
 
-            if (durationSoFar < bubblesLength)
+            if (durationSoFar < Config.bubblesLength)
                 return;
 
             if (totemBubblePoint.HasValue &&
@@ -273,6 +279,35 @@ namespace BubbleTotem
             startBubblesTime = Game1.timeOfDay;
 
 
+
+        }
+
+
+        private void OnGameLaunched(object sender, GameLaunchedEventArgs e)
+        {
+            // get Generic Mod Config Menu's API (if it's installed)
+            var configMenu = this.Helper.ModRegistry.GetApi<IGenericModConfigMenuApi>("spacechase0.GenericModConfigMenu");
+            if (configMenu is null)
+                return;
+
+            // register mod
+            configMenu.Register(
+                mod: this.ModManifest,
+                reset: () => this.Config = new ModConfig(),
+                save: () => this.Helper.WriteConfig(this.Config)
+            );
+
+            // add some config options
+            configMenu.AddNumberOption(
+                mod: this.ModManifest,
+                name: () => "Duration of Bubbles",
+                tooltip: () => "Amount of in-game minutes for the bubbles to appear.",
+                getValue: () => this.Config.bubblesLength,
+                setValue: value => this.Config.bubblesLength = value,
+                min: 10,
+                max: 600,
+                interval: 10
+            );
 
         }
     }
