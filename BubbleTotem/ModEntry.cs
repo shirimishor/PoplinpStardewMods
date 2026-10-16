@@ -77,8 +77,8 @@ namespace BubbleTotem
                     data.Add("Poplinp.BubbleTotem_BubbleTotem", new ObjectData()
                     {
                         Name = "Bubble Totem",
-                        DisplayName = "Bubble Totem",
-                        Description = "desc tbd",
+                        DisplayName = this.Helper.Translation.Get("BubbleTotem.Name"),
+                        Description = this.Helper.Translation.Get("BubbleTotem.Desc"),
                         Type = "Crafting",
                         Category = 0,
                         Price = 20,
@@ -300,8 +300,8 @@ namespace BubbleTotem
             // add some config options
             configMenu.AddNumberOption(
                 mod: this.ModManifest,
-                name: () => "Duration of Bubbles",
-                tooltip: () => "Amount of in-game minutes for the bubbles to appear.",
+                name: () => this.Helper.Translation.Get("ConfigDuration.Name"),
+                tooltip: () => this.Helper.Translation.Get("ConfigDuration.Desc"),
                 getValue: () => this.Config.bubblesLength,
                 setValue: value => this.Config.bubblesLength = value,
                 min: 10,

@@ -1,0 +1,9 @@
+{
+
+    "BubbleTotem.Name": "Bubble Totem",
+    "BubbleTotem.Desc": "Activate to create bubbles in a body of water in front of you. Consumed on use.",
+
+    "ConfigDuration.Name": "Duration of Bubbles",
+    "ConfigDuration.Desc": "Amount of in-game minutes for the bubbles to appear."
+
+}
