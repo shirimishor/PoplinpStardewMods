@@ -245,6 +245,8 @@ namespace BubbleTotem
                     continue;
                 }
 
+                Game1.player.canMove = false;
+                Game1.player.freezePause = 1000;
                 Game1.playSound("bubbles");
                 TemporaryAnimatedSprite sprite = new TemporaryAnimatedSprite(0, 9999f, 1, 999, Game1.player.Position + new Vector2(0f, -96f), flicker: false, flipped: false, verticalFlipped: false, 0f)
                 {
