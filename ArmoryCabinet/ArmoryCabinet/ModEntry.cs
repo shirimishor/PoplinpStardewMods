@@ -8,6 +8,7 @@ using StardewValley.Delegates;
 using StardewValley.GameData.Shops;
 using StardewModdingAPI.Events;
 using System.Linq;
+using StardewValley.Tools;
 
 
 
@@ -31,6 +32,11 @@ namespace ArmoryCabinet
                 $"{this.ModManifest.UniqueID}_WEAPON_TYPE",
                 WeaponType
             );
+
+        GameStateQuery.Register(
+                $"{this.ModManifest.UniqueID}_ITEM_IS_LOADED_SLINGSHOT",
+                IsLoadedSlingshot
+           );
         }
 
 
@@ -90,6 +96,22 @@ namespace ArmoryCabinet
             return false;
         }
 
+        private static bool IsLoadedSlingshot(string[] query, GameStateQueryContext context)
+        {
+            if (!GameStateQuery.Helpers.TryGetItemArg(
+                    query,
+                    1,
+                    context.TargetItem,
+                    context.InputItem,
+                    out Item item,
+                    out string error))
+            {
+                return GameStateQuery.Helpers.ErrorResult(query, error);
+            }
+
+            return item is Slingshot slingshot
+                && slingshot.attachments[0] != null;
+        }
 
         private static ShopItemData CreateShopItem(string id, string itemId, int price)
         {
