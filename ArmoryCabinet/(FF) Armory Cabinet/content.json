@@ -10,10 +10,6 @@
 			"Collisions": {"Width": 2, "Height": 1},
 			"Placement Restriction": 2,
 			"Exclude from Random Sales": true,
-			"Shows in Shops": [
-            "AdventureShop", 
-            "Furniture Catalogue"
-         	],
 			"Layers": {
                 "Front": {
                 "Source Rect": {
@@ -78,10 +74,6 @@
 			"Collisions": {"Width": 2, "Height": 1},
 			"Placement Restriction": 2,
 			"Exclude from Random Sales": true,
-			"Shows in Shops": [
-            "AdventureShop", 
-            "Furniture Catalogue"
-         	],
 			"Layers": {
                 "Front": {
                 "Source Rect": {
@@ -146,10 +138,6 @@
 			"Collisions": {"Width": 1, "Height": 1},
 			"Placement Restriction": 2,
 			"Exclude from Random Sales": true,
-			"Shows in Shops": [
-            "AdventureShop", 
-            "Furniture Catalogue"
-         	],
 			"Layers": {
                 "Front": {
                 "Source Rect": {
@@ -214,10 +202,6 @@
 			"Collisions": {"Width": 1, "Height": 1},
 			"Placement Restriction": 2,
 			"Exclude from Random Sales": true,
-			"Shows in Shops": [
-            "AdventureShop", 
-            "Furniture Catalogue"
-         	],
 			"Layers": {
                 "Front": {
                 "Source Rect": {
